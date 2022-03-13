@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>计网作业3190105656廖旋</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <style>
+    body,
+    html,
+    #container {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        font-family: "微软雅黑";
+    }
+    </style>
+    <script src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=s0wKDOG1eIpeTDf0NWbQNupmPs1dqfhO"></script>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+</html>
+<script>
+	var map = new BMapGL.Map('container');
+	map.centerAndZoom(new BMapGL.Point(111.468,27.245), 12);
+	map.enableScrollWheelZoom(true);
+
+	var pStart = new BMapGL.Point(111.1,27.25);
+	var pEnd = new BMapGL.Point(111.4,27.4);
+	var bounds = new BMapGL.Bounds(new BMapGL.Point(pStart.lng, pEnd.lat), new BMapGL.Point(pEnd.lng, pStart.lat));
+	var imgOverlay = new BMapGL.GroundOverlay(bounds, {
+    		type: 'image',
+    		url: 'https://nimg.ws.126.net/?url=http%3A%2F%2Fdingyue.ws.126.net%2F2020%2F0225%2F9965a5d8p00q68ee502g9c001hc00rvm.png&thumbnail=660x2147483647&quality=80&type=jpg',
+    		opacity: 1
+	});
+	imgOverlay.setZIndex(10000000);
+	map.addOverlay(imgOverlay);
+
+	var point = new BMapGL.Point(111.468,27.245);
+	var marker = new BMapGL.Marker(point);  // 创建标注
+	map.addOverlay(marker);              // 将标注添加到地图中
+	var opts = {
+	    width : 500,     // 信息窗口宽度
+	    height: 150,     // 信息窗口高度
+	    title : "邵阳市介绍" , // 信息窗口标题
+	    message:"这里是故宫"
+	}
+	var infoWindow = new BMapGL.InfoWindow("邵阳，古称宝庆，湖南省辖地级市，位于湘中偏西南，资江上游；越岭逶迤，东、南，雪峰山耸峙西、北，资江自西南向东北流贯全境，中间为丘陵盆地，东与衡阳为邻，南与永州和桂林接壤，西与怀化交界，北与娄底毗连，介于北纬25°58’～27°40'，东经109°49'～112°57'之间，总面积20824平方千米。邵阳市辖3个市辖区、7个县（其中1个自治县），代管2个县级市。截至2020年11月，根据第七次全国人口普查数据，邵阳市常住人口为6563520人。", opts);  // 创建信息窗口对象 
+	marker.addEventListener("click", function(){          
+		map.openInfoWindow(infoWindow, point); //开启信息窗口
+	}); 
+
+</script>
